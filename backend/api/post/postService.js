@@ -1,7 +1,7 @@
 //PostService에서 세부적인 함수 구현현
 
 const { where } = require('sequelize');
-const { post: Post } = require('../../models');
+const { Post } = require('../../models');
 
 const create = async(title, description) => {
     try{

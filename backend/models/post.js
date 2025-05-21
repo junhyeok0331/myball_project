@@ -1,5 +1,5 @@
 module.exports = ( sequelize, DataTypes ) => (
-    sequelize.define('post', {
+    sequelize.define('Post', {
         postId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
