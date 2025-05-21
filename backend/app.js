@@ -16,11 +16,7 @@ sequelize.sync();
 module.exports = { app };
 
 const postController = require('./api/post/postController');
-app.use('/', postController);
-
-app.get('/api/hello', (req, res) => {
-    res.json({ message: 'Hello from backend!' });
-});
+app.use('/posts', postController);
 
 //check server is running
 app.listen(HTTP_PORT, HOST, () => {
