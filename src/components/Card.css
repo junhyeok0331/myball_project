@@ -1,13 +1,13 @@
-  .card {
-    width: 400px;
-    height: 500px;
-    border: 2px solid black;
-    border-radius: 20px;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
-    background-color: #f9f9f9;
-    background-image: url("C:\Users\mtvro\OneDrive\바탕 화면\myball\myball_project\public\introball.jpg");
-    background-size: cover;   
-    background-position: center;
+.card {
+  width: 400px;
+  height: 500px;
+  border: 2px solid black;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+  background-color: #f9f9f9;
+  background-image: url('../assets/introball.jpg');
+  background-size: cover;
+  background-position: center;
 
 
     display: flex;
