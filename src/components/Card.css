@@ -1,89 +1,89 @@
-.card {
-  width: 400px;
-  height: 500px;
-  border: 2px solid black;
-  border-radius: 20px;
-  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
-  background-color: #f9f9f9;
-  background-image: url("C:\Users\mtvro\OneDrive\사진\introball.jpg");
-  background-size: cover;
-  background-position: center;
+  .card {
+    width: 400px;
+    height: 500px;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    background-color: #f9f9f9;
+    background-image: url("C:\Users\mtvro\OneDrive\바탕 화면\myball\myball_project\public\introball.jpg");
+    background-size: cover;   
+    background-position: center;
 
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
-  
-  font-family: 'IBM Plex Sans KR', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    
+    font-family: 'IBM Plex Sans KR', sans-serif;
 
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-
-.App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* 화면 세로 중앙 정렬 */
-}
-
-
-@keyframes pop {
-  0% {
-    transform: scale(0.95);
-    text-shadow: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  50% {
-    transform: scale(1.05);
-    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+
+
+  .App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 세로 중앙 정렬 */
   }
-  100% {
-    transform: scale(1);
+
+
+  @keyframes pop {
+    0% {
+      transform: scale(0.95);
+      text-shadow: none;
+    }
+    50% {
+      transform: scale(1.05);
+      text-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+    }
+    100% {
+      transform: scale(1);
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .card h1 {
+    font-size: 60px;
+    font-family: 'Gugi', sans-serif;
+    margin-bottom: -30px;
+
+    /* 흰색 그라디언트 유지 (야구공 느낌) */
+    background: linear-gradient(20deg, #ffffff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* 튀어나오는 그림자 효과 */
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 50px; /* 둥근 야구공 느낌 */
+
+    /* 튀어나오는 애니메이션 */
+    animation: pop 0.6s ease-out;
   }
-}
-
-.card h1 {
-  font-size: 60px;
-  font-family: 'Gugi', sans-serif;
-  margin-bottom: -30px;
-
-  /* 흰색 그라디언트 유지 (야구공 느낌) */
-  background: linear-gradient(20deg, #ffffff, #ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  /* 튀어나오는 그림자 효과 */
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
-  padding: 10px 20px;
-  border-radius: 50px; /* 둥근 야구공 느낌 */
-
-  /* 튀어나오는 애니메이션 */
-  animation: pop 0.6s ease-out;
-}
 
 
 
-/* 💡 버튼에도 여유 있는 margin 부여 */
-.button {
-  background-color: rgba(72, 139, 255, 0.8); /* 반투명 파랑 */
-  color: #000; /* 텍스트는 불투명하게 유지 */
-  border: none;
-  cursor: pointer;
-  border-radius: 8px;
-  width: 150px;
-  height: 70px;
-  transition: 0.3s;
+  /* 💡 버튼에도 여유 있는 margin 부여 */
+  .button {
+    background-color: rgba(72, 139, 255, 0.8); /* 반투명 파랑 */
+    color: #000; /* 텍스트는 불투명하게 유지 */
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 150px;
+    height: 70px;
+    transition: 0.3s;
 
-  margin-top: 80px;
-}
+    margin-top: 80px;
+  }
 
-.button:hover {
-  background-color: #3b82f6;
-  box-shadow: 0 0 0 5px #3b83f65f;
-  color: #fff;
-}
+  .button:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 5px #3b83f65f;
+    color: #fff;
+  }

@@ -1,0 +1,66 @@
+/* Login.css */
+
+.login-input {
+  width: 80%;
+  height: 40px;
+  margin: 10px 0;
+  margin-left: 26px;
+  padding: 0 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.login-input:focus {
+  border-color: #3b82f6;
+}
+
+.login-button {
+  width: 80%;
+  height: 50px;
+  margin-top: 20px;
+  margin-left: 38px;
+  background-color: rgba(72, 139, 255, 0.8);
+  color: #000;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.login-button:hover {
+  background-color: #3b82f6;
+  box-shadow: 0 0 0 5px #3b83f65f;
+  color: #fff;
+}
+
+.login-footer {
+  margin-top: 20px;
+}
+
+.login-footer {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bolder;
+  color: #000000;
+  text-align: center;
+}
+
+.login-footer a {
+  color: #3b82f6;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 5px;
+  transition: color 0.3s ease;
+}
+
+.login-footer a:hover {
+  color: #1e40af; /* 진한 파랑으로 변화 */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
