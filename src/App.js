@@ -4,6 +4,7 @@
   import Login from "./components/Login";
   import Register from "./components/Register";
   import CharacterCreate from './components/CharacterCreate';
+  import CharacterSummary from './components/CharacterSummary';
 
   function App() {
     return (
@@ -13,6 +14,7 @@
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/create-character" element={<CharacterCreate />} />
+          <Route path="/summary" element={<CharacterSummary />} />
         </Routes>
       </Router>
     );

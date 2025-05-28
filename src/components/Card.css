@@ -28,6 +28,10 @@
   -moz-osx-font-smoothing: grayscale;
   }
 
+.card.no-bg {
+  background-image: none !important;
+  background-color: white !important;
+}
 
   .App {
     display: flex;

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './CharacterCreate.css';
+import { useNavigate } from 'react-router-dom';
 
 const CharacterCreate = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1); // 1: 팀선택, 2: 선수선택, 3: 닉네임
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
@@ -24,6 +26,8 @@ const CharacterCreate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // API 호출 및 캐릭터 생성 처리
+    const characterData = { selectedTeam, selectedPlayer, nickname };
+    navigate('/summary', { state: characterData }); // 생성 후 이동
     console.log('Character created:', { selectedTeam, selectedPlayer, nickname });
   };
 
