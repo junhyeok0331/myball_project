@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Register.css';
+import './Card.css'; // 배경과 공통 스타일 포함
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -55,7 +56,7 @@ const Register = () => {
             required
           />
           <button type="submit" className="register-button">
-            가입하기
+              가입하기  
           </button>
         </form>
       </div>

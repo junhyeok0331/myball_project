@@ -1,5 +1,6 @@
 .card {
   width: 400px;
+  max-width: 90%;
   height: 500px;
   border: 2px solid black;
   border-radius: 20px;
@@ -10,17 +11,21 @@
   background-position: center;
 
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    position: relative;
-    
-    font-family: 'IBM Plex Sans KR', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
 
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  padding: 20px; /* 내부 요소들이 너무 끝에 붙지 않게 */
+  box-sizing: border-box;
+
+  font-family: 'IBM Plex Sans KR', sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   }
 
 
@@ -79,7 +84,7 @@
     height: 70px;
     transition: 0.3s;
 
-    margin-top: 80px;
+    margin-top: 30px;
   }
 
   .button:hover {

@@ -20,8 +20,7 @@
 .login-button {
   width: 80%;
   height: 50px;
-  margin-top: 20px;
-  margin-left: 38px;
+  margin: 20px auto 0;
   background-color: rgba(72, 139, 255, 0.8);
   color: #000;
   border: none;
@@ -29,7 +28,8 @@
   border-radius: 8px;
   font-weight: bold;
   font-size: 18px;
-  transition: 0.3s;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  display: block;
 }
 
 .login-button:hover {
