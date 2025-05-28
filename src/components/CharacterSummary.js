@@ -1,5 +1,6 @@
+// src/components/CharacterSummary.jsx
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Navigate } from 'react-router-dom';
 import './Card.css';
 import './CharacterSummary.css';
 
@@ -7,15 +8,22 @@ const CharacterSummary = () => {
   const { state } = useLocation();
   const { selectedTeam, selectedPlayer, nickname } = state || {};
 
+  // state 없으면 홈으로 돌려보내기
+  if (!selectedTeam || !selectedPlayer || !nickname) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <div className="summary-container">
       <div className="card no-bg summary-card">
-        <div className="top-left">{selectedTeam} </div>
+        <div className="top-left">
+            <img src={selectedTeam.logo} className="team-logo-small" />
+        </div>
         <div className="top-right">💰 200 p</div>
 
         <div className="center">
           <h2>{nickname}</h2>
-          <p>{selectedPlayer}</p>
+          <p>{selectedPlayer.name}</p>
           <div className="character-box">
             <div className="character-head" />
             <div className="character-body" />

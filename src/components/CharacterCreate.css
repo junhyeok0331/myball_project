@@ -7,50 +7,151 @@
     box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
     background-color: #f9f9f9;
     
-    /* 중앙 정렬 */
-    position: absolute;
+      /* 기존 margin 제거 */
+    margin: 0;
+
+    /* 뷰포트 기준으로 절대 중앙에 위치시킴 */
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
+
     /* 내부 요소 정렬 */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 20px;
     
-    /* 공통 스타일 */
-    overflow: hidden;
-    padding: 20px;
-    box-sizing: border-box;
-    font-family: 'IBM Plex Sans KR', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* 공통 스타일 */
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: 'IBM Plex Sans KR', sans-serif;
   }
   
-  .team-grid, .player-grid {
+  .team-select {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .team-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     width: 100%;
     padding: 10px;
+    margin-top: 20px;
+    overflow-y: auto; /* 스크롤 활성화 */
+    height: calc(100% - 60px); /* 제목 영역 제외한 높이 */
+}
+
+/* 스크롤바 스타일링 (선택사항) */
+.team-grid::-webkit-scrollbar {
+    width: 8px;
   }
   
-  .team-item, .player-item {
-    padding: 15px;
+  .team-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .team-grid::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .team-grid::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .team-item {
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease;
+    background-color: transparent;
+    border: none;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.team-logo {
+    width: 80px;  /* 로고 크기 조정 */
+    height: 80px;
+    object-fit: contain;
+}
+
+.team-item:hover {
+    transform: scale(1.1);
+}
+
+.player-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    overflow-y: auto; /* 세로 스크롤 */
+    overflow-x: hidden; /* 가로 스크롤 제거 */
+    height: calc(100% - 60px); /* 제목 영역 제외한 높이 */
+    max-height: 350px;
+  }
+  
+  .player-grid::-webkit-scrollbar {
+    width: 8px;
+    height: auto;
+  }
+  
+  .player-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .player-grid::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .player-grid::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  .player-select {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .player-item {
+    padding: 8px 15px;
     border: 2px solid #ddd;
     border-radius: 8px;
     cursor: pointer;
     text-align: center;
     transition: all 0.3s ease;
     background-color: white;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
   }
   
-  .team-item:hover, .player-item:hover {
-    border-color: #007bff;
-    background-color: #f8f9fa;
-    transform: translateY(-2px);
+  .team-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .player-item:hover {
+    transform: scale(1.1);
   }
   
   .nickname-input {
