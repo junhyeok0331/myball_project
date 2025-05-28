@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     username: '',
     password: '',
@@ -15,7 +16,20 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`아이디: ${form.username}, 비밀번호: ${form.password}`);
+    //alert(`아이디: ${form.username}, 비밀번호: ${form.password}`);
+    // 로그인 로직 (임시)
+    if (form.username && form.password) {
+      try {
+        // API 호출 로직이 들어갈 자리
+        // const response = await loginAPI(form);
+        
+        // 로그인 성공 시
+        navigate('/create-character');
+      } catch (error) {
+        console.error('Login failed:', error);
+        alert('로그인에 실패했습니다.');
+      }
+    }
   };
 
   return (
