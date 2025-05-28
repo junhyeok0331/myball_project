@@ -1,38 +1,9 @@
-.character-box {
-  margin-top: 20px;
-  width: 120px;
-  height: 200px;
-  margin-left: auto;
-  margin-right: auto;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.character-head {
-  width: 80px;
-  height: 80px;
-  background-color: white;
-  border: 3px solid black;
-  border-radius: 20px 20px 15px 15px;
-}
-
-.character-body {
-  width: 100px;
-  height: 110px;
-  background-color: white;
-  border: 3px solid black;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
 .summary-container {
   background-color: white;
   min-height: 100vh;
   display: flex;
-  justify-content: center;  /* 가로 중앙 */
-  align-items: center;      /* 세로 중앙 */
+  justify-content: center;
+  align-items: center;
 }
 
 .summary-card {
@@ -43,13 +14,16 @@
   box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
   padding: 20px;
   box-sizing: border-box;
-  position: relative;  /* 내부 절대 위치 기준 */
+  position: relative;
   background-color: white;
   text-align: center;
   font-family: 'IBM Plex Sans KR', sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/* 왼쪽 위 로고 */
 .top-left {
   position: absolute;
   top: 20px;
@@ -58,7 +32,6 @@
   font-size: 1.2rem;
 }
 
-/* 오른쪽 위 포인트 */
 .top-right {
   position: absolute;
   top: 20px;
@@ -67,15 +40,119 @@
   font-size: 1.2rem;
 }
 
+.center {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
 .center h2 {
-  margin-bottom: 2px; /* 기본 4px에서 줄임 */
+  margin: 0;
+  font-size: 1.2rem;
 }
 
 .center p {
-  margin-top: 0;
+  margin: 0;
+  font-size: 0.95rem;
 }
 
-.center {
-  margin-top: -50px; /* 위쪽 공간 띄우기 */
+.character-box {
+  margin-top: 10px;
+  width: 110px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
 }
 
+.character-head {
+  width: 55px;
+  height: 55px;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 20px 20px 15px 15px;
+}
+
+.character-body {
+  width: 85px;
+  height: 95px;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+/* 버튼 그룹 */
+.button-group {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.btn-long {
+  background-color: rgba(72, 139, 255, 0.8);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  width: 100%;
+  min-height: 80px; /* 고정 높이 대신 최소 높이만 지정 */
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+.btn-long:hover {
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 0 0 4px #3b83f65f;
+}
+
+.btn-long li {
+  font-size: 0.8rem;
+  font-weight: normal;
+  margin-left: 1rem;
+  list-style: disc;
+  color: inherit;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn {
+  background-color: rgba(72, 139, 255, 0.8); /* 반투명 파랑 */
+  color: #000;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100%;
+  height: 45px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  transition: 0.3s;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn:hover {
+  background-color: #3b82f6;
+  color: #fff;
+  box-shadow: 0 0 0 4px #3b83f65f;
+}
