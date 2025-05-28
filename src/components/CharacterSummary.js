@@ -36,9 +36,9 @@ const CharacterSummary = () => {
             <li>7회 2점 홈런 (💰+2 point)</li>
           </button>
           <div className="btn-grid">
-            <button className="btn">🧢 유니폼 마켓</button>
-            <button className="btn">🎟️ 굿즈 티켓</button>
-            <button className="btn">🏅 선수 랭킹</button>
+            <button className="btn">🧢 상점</button>
+            <button className="btn">🎟️ 굿즈 교환소</button>
+            <button className="btn">🏅 랭킹</button>
             <button className="btn">📰 내 선수 기사</button>
           </div>
         </div>
