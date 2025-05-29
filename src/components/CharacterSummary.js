@@ -1,11 +1,12 @@
 // src/components/CharacterSummary.jsx
 import React from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import './Card.css';
 import './CharacterSummary.css';
 
 const CharacterSummary = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const { selectedTeam, selectedPlayer, nickname } = state || {};
 
   // state 없으면 홈으로 돌려보내기
@@ -36,10 +37,10 @@ const CharacterSummary = () => {
             <li>7회 2점 홈런 (💰+2 point)</li>
           </button>
           <div className="btn-grid">
-            <button className="btn">🧢 상점</button>
-            <button className="btn">🎟️ 굿즈 교환소</button>
-            <button className="btn">🏅 랭킹</button>
-            <button className="btn">📰 내 선수 기사</button>
+            <button className="btn" onClick={() => navigate('/shop')}> 🧢 상점</button>
+            <button className="btn" onClick={() => navigate('/exchange')}> 🎟️ 굿즈 교환소</button>
+            <button className="btn" onClick={() => navigate('/ranking')}> 🏅 랭킹</button>
+            <button className="btn" onClick={() => navigate('/news')}> 📰 내 선수 기사</button>
           </div>
         </div>
       </div>
