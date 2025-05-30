@@ -1,4 +1,4 @@
-//PostController에서 API 함수를 만들고고
+//PostController에서 API 함수를 만들고
 
 const express = require('express');
 const router = express.Router();

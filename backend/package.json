@@ -1,7 +1,7 @@
 {
-    "name": "blog",
+    "name": "myball",
     "version": "0.0.1",
-    "description": "express로 만드는 blog 서비스",
+    "description": "myball 서비스",
     "main": "app.js",
     "scripts": {
         "start": "nodemon app"

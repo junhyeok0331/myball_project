@@ -1,4 +1,6 @@
+const path = require('path');
 const Sequelize = require('sequelize');
+
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 
@@ -10,7 +12,7 @@ const sequelize = new Sequelize(
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.Post = require('./post')(sequelize, Sequelize);
+db.Users = require('./Users')(sequelize, Sequelize);
+db.Points = require('./Points')(sequelize, Sequelize);
 
 module.exports = db;
-//일부 수정

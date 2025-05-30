@@ -15,8 +15,8 @@ sequelize.sync();
 
 module.exports = { app };
 
-const postController = require('./api/post/postController');
-app.use('/posts', postController);
+const userController = require('./api/User');
+app.use('/user', userController);
 
 //check server is running
 app.listen(HTTP_PORT, HOST, () => {
