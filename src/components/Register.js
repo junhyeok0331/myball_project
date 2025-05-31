@@ -40,7 +40,7 @@ const Register = () => {
     try {
       // 3) 백엔드에 POST 요청 보내기
       const response = await axios.post(
-        'http://172.30.1.41:8080/user/signup',
+        'http://172.20.84.222:8080/api/users/signup',
         {
           username: form.username,
           password: form.password,
