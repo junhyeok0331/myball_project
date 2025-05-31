@@ -9,7 +9,7 @@
 - **Database**: MySQL (Sequelize ORM)
 - **Styling**: CSS, JavaScript
 
-### 백엔드 실행방법
+## 백엔드 실행방법
 
 1. 프로젝트 클론
 
@@ -49,7 +49,7 @@ node initDB.js //실행
 npm start
 ```
 
-### 프론트 실행 방법
+## 프론트엔드 실행방법
 
 1. 프로젝트 클론
 백엔드와 동일하게 실행
