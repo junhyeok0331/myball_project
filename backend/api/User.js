@@ -19,8 +19,8 @@ router.post('/signup', async (req, res) => {
     const newShop = await Shop.create({ userId: newUser.id });
 
     const itemsData = [
-      { shopId: newShop.id, name: '윈지 모자', price: 100, purchased: false },
-      { shopId: newShop.id, name: '윈지 티셔츠', price: 200, purchased: false }
+      { shopId: newShop.id, name: '윈지 모자', price: 50, purchased: false },
+      { shopId: newShop.id, name: '윈지 티셔츠', price: 80, purchased: false }
     ];
 
     await Item.bulkCreate(itemsData);
@@ -58,6 +58,7 @@ router.post('/login', async (req, res) => {
 
 // 사용자의 팀 선택 저장
 router.post('/save-team', async (req, res) => {
+  console.log('[팀 선택 요청 도착]', req.body);
   try {
     const { userId, teamName } = req.body;
 
