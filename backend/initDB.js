@@ -27,7 +27,7 @@ async function initDatabase() {
     CREATE TABLE IF NOT EXISTS Points (
       id INT PRIMARY KEY AUTO_INCREMENT,
       user_id INT NOT NULL,
-      point_change INT NOT NULL,
+      point INT NOT NULL,
       FOREIGN KEY (user_id) REFERENCES Users(id)
         ON DELETE CASCADE
     )

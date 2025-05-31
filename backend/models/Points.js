@@ -14,7 +14,7 @@ module.exports = ( sequelize, DataTypes ) => (
             },
             onDelete: 'CASCADE',
         },
-        point_change: {
+        point: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },

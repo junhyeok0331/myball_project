@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { where } = require('sequelize');
-const { Users } = require('../models');
+const { Points, Users } = require('../models');
 
 // 회원가입 요청 처리
 router.post('/signup', async (req, res) => {
@@ -16,6 +16,7 @@ router.post('/signup', async (req, res) => {
    
            // 유저 생성
            const newUser = await Users.create({ username, password });
+           await Points.create({user_id : username, point : 0});
            return res.status(201).json({ message: '회원가입 성공', userId: newUser.id});
        } catch (err) {
            console.error(err);
