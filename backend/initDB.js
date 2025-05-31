@@ -31,3 +31,4 @@ async function initDatabase() {
 }
 
 initDatabase().catch(console.error);
+
