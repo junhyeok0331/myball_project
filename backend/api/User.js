@@ -1,26 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const { where } = require('sequelize');
-const { Points, Users } = require('../models');
+const { Users, Shop, Item } = require('../models');
 
 // 회원가입 요청 처리
 router.post('/signup', async (req, res) => {
-    console.log('[회원가입 요청 도착]', req.body); // 🔍 로그 추가
-    try {
-            const { username, password } = req.body;
-           // 중복 확인
-           const existingUser = await Users.findOne({ where: { username } });
-           if (existingUser) {
-               return res.status(400).json({ message: '이미 존재하는 사용자입니다.' });
-           }
-   
-           // 유저 생성
-           const newUser = await Users.create({ username, password });
-           return res.status(201).json({ message: '회원가입 성공', userId: newUser.id});
-       } catch (err) {
-           console.error(err);
-           return res.status(500).json({ message: '서버 오류로 인해 회원가입에 실패했습니다.' });
-       }
+  console.log('[회원가입 요청 도착]', req.body);
+  try {
+    const { username, password } = req.body;
+
+    const existingUser = await Users.findOne({ where: { username } });
+    if (existingUser) {
+      return res.status(400).json({ message: '이미 존재하는 사용자입니다.' });
+    }
+
+    const newUser = await Users.create({ username, password });
+
+    const newShop = await Shop.create({ userId: newUser.id });
+
+    const itemsData = [
+      { shopId: newShop.id, name: '윈지 모자', price: 100, purchased: false },
+      { shopId: newShop.id, name: '윈지 티셔츠', price: 200, purchased: false }
+    ];
+
+    await Item.bulkCreate(itemsData);
+
+    return res.status(201).json({ message: '회원가입 성공, 상점과 아이템이 생성되었습니다.', userId: newUser.id });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: '서버 오류로 인해 회원가입에 실패했습니다.' });
+  }
 });
 
 // 로그인 요청 처리
@@ -90,7 +99,6 @@ router.post('/save-player', async (req, res) => {
 
     // 선수 정보만 업데이트
     user.player = playerName;
-    user.selected = true; // 이 시점에서 최종 선택 완료 처리
     await user.save();
 
     return res.status(200).json({ message: '선수 선택이 저장되었습니다.', user });

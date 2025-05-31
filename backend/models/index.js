@@ -13,5 +13,13 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.Users = require('./Users')(sequelize, Sequelize);
+db.Shop = require('./Shop')(sequelize, Sequelize);
+db.Item = require('./Item')(sequelize, Sequelize);
+
+db.Users.hasOne(db.Shop, { foreignKey: 'userId', onDelete: 'CASCADE' });
+db.Shop.belongsTo(db.Users, { foreignKey: 'userId' });
+
+db.Shop.hasMany(db.Item, { foreignKey: 'shopId', onDelete: 'CASCADE' });
+db.Item.belongsTo(db.Shop, { foreignKey: 'shopId' });
 
 module.exports = db;
