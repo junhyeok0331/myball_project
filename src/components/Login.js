@@ -28,9 +28,8 @@ const Login = () => {
     }
 
     try {
-      // 로그인 요청 경로를 '/api/users/login' 으로 수정했습니다.
       const response = await axios.post(
-        'http://172.30.1.41:8080/user/login',
+        'http://172.20.84.222:8080/api/users/login',
         {
           username: form.username,
           password: form.password,
@@ -39,8 +38,6 @@ const Login = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          // 만약 쿠키 기반 세션을 사용한다면, credentials: 'include' 같은 설정이 필요할 수 있습니다.
-          // withCredentials: true
         }
       );
 
