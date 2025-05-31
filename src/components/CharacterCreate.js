@@ -174,8 +174,8 @@ const CharacterCreate = () => {
     }
 
     const team = teams.find((t) => t.id === teamId);
-
     try {
+      // 백엔드의 실제 엔드포인트: /api/user/save-team
       const response = await fetch('http://172.20.84.222:8080/api/users/save-team', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -184,12 +184,11 @@ const CharacterCreate = () => {
 
       const data = await response.json();
       if (!response.ok) {
-        // 백엔드에서 에러 메시지를 내려주면 그대로 보여 줌
         setErrorMsg(data.message || '팀 저장 중 오류가 발생했습니다.');
         return;
       }
 
-      // 서버 저장이 성공하면 로컬 상태에도 반영하고 다음 단계로 이동
+      // 서버 저장 성공 시
       setSelectedTeam(team);
       setStep(2);
     } catch (err) {
@@ -207,6 +206,7 @@ const CharacterCreate = () => {
     }
 
     try {
+      // 백엔드의 실제 엔드포인트: /api/user/save-player
       const response = await fetch('http://172.20.84.222:8080/api/users/save-player', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -242,6 +242,7 @@ const CharacterCreate = () => {
     }
 
     try {
+      // 백엔드의 실제 엔드포인트: /api/user/save-nickname
       const response = await fetch('http://172.20.84.222:8080/api/users/save-nickname', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -254,7 +255,7 @@ const CharacterCreate = () => {
         return;
       }
 
-      // 모든 단계가 끝났으니 summary 페이지로 이동
+      // 최종 완료 후 summary 페이지로 이동
       navigate('/summary', {
         state: { selectedTeam, selectedPlayer, nickname, userId },
       });
