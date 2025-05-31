@@ -3,11 +3,67 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: white; /* ⚪️ introball.jpg 제거 효과 */
+  background-color: white;
 }
 
-
-.exchange-page .card {
+/* ✅ summary-card: 크기 고정 */
+.summary-card {
   width: 400px;
-  padding: 20px;
+  height: 600px; /* 고정 높이 */
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ✅ 스크롤 가능한 굿즈 영역 */
+.goods-scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 16px;
+}
+
+/* ✅ 격자 정렬 유지 */
+.goods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  padding: 4px;
+}
+
+/* ✅ 각 굿즈 카드 */
+.goods-card {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.goods-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.exchange-button {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.exchange-button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
 }
