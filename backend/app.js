@@ -11,14 +11,16 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 const{ sequelize } = require('./models');
-sequelize.sync();
-
-module.exports = { app };
+sequelize.sync({ alter: true }) // alter: true 추가
+  .then(() => console.log("✅ Sequelize sync 완료"))
+  .catch(err => console.error("❌ Sequelize sync 실패:", err));
 
 const userController = require('./api/User');
-app.use('/user', userController);
+app.use('/api/users', userController);
 
 //check server is running
 app.listen(HTTP_PORT, HOST, () => {
     console.log(`server is on http://${HOST}:${HTTP_PORT}`);
 });
+
+module.exports = { app };
