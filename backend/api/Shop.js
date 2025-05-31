@@ -4,6 +4,7 @@ const { Users, Shop, Item } = require('../models');
 
 // 아이템 구매 요청
 router.post('/purchase', async (req, res) => {
+    console.log('[아이템 구매 요청 도착]', req.body);
   try {
     const { userId, itemId } = req.body;
 

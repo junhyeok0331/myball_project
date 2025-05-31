@@ -17,8 +17,12 @@ sequelize.sync({ alter: true }) // alter: true 추가
 
 const userController = require('./api/User');
 app.use('/api/users', userController);
+const shopController = require('./api/Shop');
+app.use('/api/Shop', shopController);
 const mainPanelRouter = require('./api/MainPanel');
 app.use('/api/main-panel', mainPanelRouter);
+const newsController = require('./api/News');
+app.use('/api/news', newsController);
 
 const shopController = require('./api/Shop');
 app.use('/api/Shop', shopController);
