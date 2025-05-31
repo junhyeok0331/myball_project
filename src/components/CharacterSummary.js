@@ -11,10 +11,6 @@ const CharacterSummary = () => {
 
   const { equippedItem } = useEquippedItem();
 
-  // 디버그용: selectedTeam.name 값 확인
-  console.log('selectedTeam:', selectedTeam);
-  console.log('selectedTeam.name:', selectedTeam?.name);
-
   const teamAvatars = {
     두산: '/avatars/doosan.png',
     한화: '/avatars/hanwha.png',
@@ -40,14 +36,13 @@ const CharacterSummary = () => {
   }
 
   const avatarImage = equippedItem
-    ? (equippedAvatars[equippedItem.id] || teamAvatars[selectedTeam.name] || '/avatars/default.png')
-    : (teamAvatars[selectedTeam.name] || '/avatars/default.png');
+    ? (equippedAvatars[equippedItem.id] || teamAvatars[selectedTeam.name])
+    : teamAvatars[selectedTeam.name];
 
   return (
     <div className="summary-container">
       <div className="card no-bg summary-card">
         <div className="top-left">
-          {/* 팀 로고가 selectedTeam.logo 에서 제대로 전달되는지도 체크 */}
           <img src={selectedTeam.logo} className="team-logo-small" alt="팀 로고" />
         </div>
         <div className="top-right">💰 200 p</div>
@@ -62,7 +57,6 @@ const CharacterSummary = () => {
             src={avatarImage}
             alt="캐릭터 아바타"
             className="character-img"
-            onError={(e) => { e.target.src = '/avatars/default.png'; }} // 이미지 로딩 실패 시 기본 이미지 표시
           />
         </div>
 
@@ -82,7 +76,10 @@ const CharacterSummary = () => {
             <button className="btn" onClick={() => navigate('/ranking')}>
               🏅 랭킹
             </button>
-            <button className="btn" onClick={() => navigate('/news')}>
+            <button
+              className="btn"
+              onClick={() => navigate('/news', { state: { selectedPlayer } })}
+            >
               📰 내 선수 기사
             </button>
           </div>

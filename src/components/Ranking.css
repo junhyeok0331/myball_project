@@ -2,12 +2,72 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: white; /* ⚪️ introball.jpg 제거 효과 */
+  min-height: 100vh; /* 충분한 높이 확보 */
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-
-.ranking-page .card {
+.summary-card {
   width: 400px;
-  padding: 20px;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-card h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.summary-card p {
+  margin-top: 0;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  color: #555;
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 320px;   /* 높이 제한 */
+  overflow-y: auto;    /* 내용 넘치면 스크롤 */
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+}
+
+.ranking-item:last-child {
+  border-bottom: none;
+}
+
+.ranking-position {
+  font-weight: bold;
+  width: 50px;
+}
+
+.player-name {
+  flex-grow: 1;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.player-score {
+  font-weight: bold;
+  color: #444;
 }

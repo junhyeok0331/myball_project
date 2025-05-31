@@ -3,11 +3,62 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: white; /* ⚪️ introball.jpg 제거 효과 */
+  background: white !important;
+  background-image: none !important;
 }
+
 
 
 .news-page .card {
   width: 400px;
+  max-height: 80vh; /* 카드 최대 높이 제한 */
   padding: 20px;
+  background-color: white;
+  border-radius: 8px; /* 기존 카드 둥글기 유지 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 기존 그림자 유지 */
+  overflow-y: auto; /* 내용이 많으면 내부 스크롤 */
+  display: flex;
+  flex-direction: column;
+}
+
+.news-page .card h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 28px;
+  color: #333;
+}
+
+.articles-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.article-card {
+  background-color: #f9f9f9;
+  padding: 12px 15px;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+.article-card:hover {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.article-title {
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.article-date {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.article-summary {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.3;
 }
