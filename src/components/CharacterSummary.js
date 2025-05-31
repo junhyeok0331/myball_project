@@ -10,44 +10,68 @@ const CharacterSummary = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  // 아래 변수들은 Login 또는 CharacterCreate에서 넘어올 수도 있고, 넘어오지 않을 수도 있습니다.
+  // 로그인 또는 CharacterCreate에서 넘어올 수도 있는 값들
+  // ───────────────────────────────────────────────────────────
   const {
-    selectedTeam: stateTeam,
-    selectedPlayer: statePlayer,
-    nickname: stateNickname,
-    userId: passedUserId
+    selectedTeam: stateTeam,         // { id, name, logo } 형태로 넘어오면 바로 사용
+    selectedPlayer: statePlayer,     // { id, name } 형태로 넘어온 경우
+    nickname: stateNickname,         // 문자열
+    userId: passedUserId             // 숫자 or 문자열
+    // (현재 예제에서는 포인트가 state에 안 실려오므로, 포인트는 아래에서 따로 가져옵니다)
   } = state || {};
 
   const { equippedItem } = useEquippedItem();
 
-  // — 서버에서 가져온 팀 이름, 로고, 선수 목록 — 
+  // (1) “팀 이름”, “팀 로고 URL”, “서버에서 내려주는 선수 목록”
+  // ───────────────────────────────────────────────────────────
   const [teamName, setTeamName] = useState(stateTeam?.name || '');
   const [teamLogoUrl, setTeamLogoUrl] = useState(stateTeam?.logo || '');
-  const [teamPlayers, setTeamPlayers] = useState([]);
+  const [teamPlayers, setTeamPlayers] = useState([]); // 예시: [ {id:1,name:'두산선수1'}, … ]
 
-  // — 서버에서 가져온 포인트 —
+  // (2) “DB에 저장된 포인트”를 받아올 상태
   const [point, setPoint] = useState(null);
 
-  // — 로컬 상태: 닉네임과 선택된 선수 —
+  // (3) 로컬 상태: 닉네임, 선택된 선수(최종)
   const [nickname, setNickname] = useState(stateNickname || '');
   const [selectedPlayer, setSelectedPlayer] = useState(statePlayer || null);
 
-  // — 로딩 / 에러 상태 —
+  // (4) 로딩/에러 처리용
   const [loadingTeam, setLoadingTeam] = useState(true);
   const [loadingPoint, setLoadingPoint] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // userId 결정: state에서 넘어온 값이 있으면 그것, 없으면 localStorage에서 꺼내기
+  // (5) userId 결정:
+  //     1) “state” 에 userId가 있으면 그것을 쓰고,
+  //     2) 없다면 localStorage에서 꺼내보자
   const storedUserId = passedUserId || localStorage.getItem('userId');
 
-  // ─── (1) “팀 정보 + 선수 목록” 조회 ─────────────────────────────────────────────────────
+  // ────────────────────────────────────────────────────────────────────────────
+  // (6) “팀 조회 + 선수 목록 조회” 로직 (useEffect)
+  //      – 만약 stateTeam 이 이미 있으면, 굳이 백엔드를 호출하지 않는다!
+  //      – stateTeam 이 없으면 → `/api/main-panel/team?userId=…` 호출
+  // ────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!storedUserId) {
-      // userId가 없으면 로그인 페이지로 돌려보냅니다.
+      // userId가 없으면 로그인 페이지로 리다이렉트
       navigate('/login');
       return;
     }
 
+    // (6.1) “stateTeam”이 이미 있으면(= 로그인 혹은 캐릭터 생성에서 넘어온 경우),
+    //       바로 팀 정보와 로고, 선수 정보는 state로부터 가져온다.
+    if (stateTeam) {
+      setTeamName(stateTeam.name);
+      setTeamLogoUrl(stateTeam.logo);
+      // “statePlayer”가 넘어왔다면, 서버에서 새로 선수 목록을 불러올 필요 없이
+      // 그냥 selectedPlayer도 statePlayer로 세팅해 둔다.
+      if (statePlayer) {
+        setSelectedPlayer(statePlayer);
+      }
+      setLoadingTeam(false);
+      return;
+    }
+
+    // (6.2) “stateTeam” 이 없는 경우 → 백엔드 호출
     const fetchTeamInfo = async () => {
       try {
         const response = await axios.get(
@@ -55,28 +79,33 @@ const CharacterSummary = () => {
           { params: { userId: storedUserId } }
         );
 
-        // status 200인 경우에만 데이터 가공
+        // 정상 응답(200) 이면서 서버가 team, players를 내려준다면
         if (response.status === 200 && response.data.team) {
-          const serverTeamName = response.data.team;
-          const serverPlayers = response.data.players;
+          const serverTeamName = response.data.team;       // 예: "두산"
+          const serverPlayers = response.data.players;     // 예: [ {id:1,name:'두산선수1'}, ... ]
 
-          // “팀 이름 → 로고 URL” 매핑
+          // “팀 이름 → 로고 URL” 을 매핑하여 로고를 불러온다.
           const logoUrl = getLogoByTeamName(serverTeamName);
 
           setTeamName(serverTeamName);
           setTeamLogoUrl(logoUrl);
           setTeamPlayers(serverPlayers);
 
-          // (선택) 만약 statePlayer가 없으면 서버에서 가져온 선수 목록 중 첫 번째를 기본으로 지정
-          // if (!statePlayer && serverPlayers.length > 0) {
-          //   setSelectedPlayer({ id: serverPlayers[0].id, name: serverPlayers[0].name });
-          // }
+          // 만약 “statePlayer”(이전에 선택한 선수)가 없다면,
+          // 서버에서 받은 선수 목록 중 첫 번째를 기본값으로 사용하거나
+          // 사용자가 직접 선택하도록 두어도 된다. 여기서는 첫 번째 선수로 세팅해 보자.
+          if (!statePlayer && serverPlayers.length > 0) {
+            setSelectedPlayer({
+              id: serverPlayers[0].id,
+              name: serverPlayers[0].name,
+            });
+          }
         } else {
-          // status 200이었지만 형식이 다를 경우
+          // status 200 이긴 한데, 형식이 맞지 않으면(서버가 team을 내려주지 않으면)
           setErrorMsg('팀 정보를 불러오지 못했습니다.');
         }
       } catch (err) {
-        // ─ “백엔드가 400 에러(팀 정보가 설정되어 있지 않음)”을 던져준 경우 ─
+        // ─ 백엔드가 “팀 정보가 설정되지 않았다” 라고 400 에러를 보내주는 경우 ─
         if (err.response && err.response.status === 400) {
           const backendMsg = err.response.data?.message;
           if (backendMsg === '팀 정보가 설정되어 있지 않습니다.') {
@@ -86,7 +115,7 @@ const CharacterSummary = () => {
           }
         }
 
-        // 그 외 모든 오류 (네트워크 오류, 500 등)
+        // 그 외 네트워크 오류나 500번 에러
         console.error('[팀 조회 오류]', err);
         if (err.response && err.response.data && err.response.data.message) {
           setErrorMsg(err.response.data.message);
@@ -99,19 +128,23 @@ const CharacterSummary = () => {
     };
 
     fetchTeamInfo();
-  }, [storedUserId, navigate, statePlayer]);
+  }, [storedUserId, stateTeam, statePlayer, navigate]);
 
-
-  // ─── (2) “포인트” 조회 ───────────────────────────────────────────────────────────────
+  // ────────────────────────────────────────────────────────────────────────────
+  // (7) “포인트 조회” 로직 (useEffect)
+  //       – 이 예시에서는 state에 포인트가 실려 오지 않으므로 무조건 서버 호출
+  //         (필요하다면 “statePoint” 분기 추가 가능)
+  // ────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (!storedUserId) return;
 
     const fetchPoint = async () => {
       try {
         const response = await axios.get(
-          `http://172.20.84.222:8080/api/main-panel/point`,
+          `http://172.20.84.222:8080/api/main-panel/points`,
           { params: { userId: storedUserId } }
         );
+
         if (response.status === 200 && response.data.point !== undefined) {
           setPoint(response.data.point);
         } else {
@@ -132,9 +165,10 @@ const CharacterSummary = () => {
     fetchPoint();
   }, [storedUserId]);
 
-
-  // ─── (3) 로딩 / 에러 / 리다이렉트 처리 ─────────────────────────────────────────────────
-  // - 둘 중 하나라도 로딩 중이면 “로딩 중” 화면
+  // ────────────────────────────────────────────────────────────────────────────
+  // (8) 로딩 / 에러 / 리다이렉트 처리
+  // ────────────────────────────────────────────────────────────────────────────
+  // – 둘 중 하나라도 로딩 중이면 “로딩 중” 화면
   if (loadingTeam || loadingPoint) {
     return (
       <div className="summary-container">
@@ -145,7 +179,7 @@ const CharacterSummary = () => {
     );
   }
 
-  // - 에러가 setErrorMsg에 담겼다면 오류 화면 & 홈으로 버튼
+  // – 에러가 있으면 에러 메시지만 보여주고, “홈으로” 버튼
   if (errorMsg) {
     return (
       <div className="summary-container">
@@ -159,9 +193,9 @@ const CharacterSummary = () => {
     );
   }
 
-  // - 서버에서 “팀 조회”가 성공한 뒤, teamName이 여전히 빈 문자열이면(=DB에 user.team이 null) → 이미 위에서 /create-character로 보냈으므로 여기에 도달하지 않습니다.
+  // – “팀 이름”이 빈 문자열인 경우는 이미 위에서 /create-character 로 리다이렉트 했으므로 여기서는 볼일 없음
 
-  // - stateNickname / statePlayer 없이 여기까지 왔다면 아직 캐릭터 생성이 덜 된 상태 → /create-character로 리다이렉트
+  // – “닉네임”이나 “선택 선수”가 없으면 캐릭터 생성이 아직 덜 된 상태로 판단 → /create-character 로 보내기
   if (!stateNickname && !nickname) {
     return <Navigate to="/create-character" replace />;
   }
@@ -169,9 +203,10 @@ const CharacterSummary = () => {
     return <Navigate to="/create-character" replace />;
   }
 
-
-  // ─── (4) “요약 화면” 실제 렌더링 ──────────────────────────────────────────────────────
-  // “아바타”는 장착 아이템이 있으면 그 아이템별 아바타, 없으면 팀 로고 기반
+  // ────────────────────────────────────────────────────────────────────────────
+  // (9) 화면 최종 렌더링
+  // ────────────────────────────────────────────────────────────────────────────
+  // avatar는 “장착 아이템이 있으면 해당 아이템 아바타”, 없으면 “팀 로고 기반”을 사용
   const equippedAvatars = {
     1: '/shop-list/winghat_eq.png',
     2: '/avatars/doosan_with_wingshirt.png',
@@ -247,8 +282,9 @@ const CharacterSummary = () => {
   );
 };
 
-
-/** 팀 이름을 받아서 로고 URL을 반환하는 헬퍼 함수 */
+/**
+ * 팀 이름을 받아서 로고 URL을 반환하는 헬퍼 함수입니다.
+ */
 function getLogoByTeamName(teamName) {
   switch (teamName) {
     case '두산': return '/avatars/doosan.png';
