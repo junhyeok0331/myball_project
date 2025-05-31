@@ -21,6 +21,8 @@ const shopController = require('./api/Shop');
 app.use('/api/Shop', shopController);
 const mainPanelRouter = require('./api/MainPanel');
 app.use('/api/main-panel', mainPanelRouter);
+const newsController = require('./api/News');
+app.use('/api/news', newsController);
 
 //check server is running
 app.listen(HTTP_PORT, HOST, () => {
