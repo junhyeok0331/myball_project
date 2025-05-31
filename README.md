@@ -23,7 +23,7 @@ cd myball_project/backend
 npm install
 ```
 
-# 3. 환경 변수 설정
+3. 환경 변수 설정
 .env 파일을 생성하고 아래 정보를 입력하세요
 (값은 실제 서버 환경에 맞게 작성)
 ```bash
