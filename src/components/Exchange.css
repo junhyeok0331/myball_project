@@ -1,0 +1,13 @@
+.exchange-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white; /* ⚪️ introball.jpg 제거 효과 */
+}
+
+
+.exchange-page .card {
+  width: 400px;
+  padding: 20px;
+}

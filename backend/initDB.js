@@ -21,6 +21,7 @@ async function initDatabase() {
       password VARCHAR(225) NOT NULL,
       team VARCHAR(100),
       player VARCHAR(100),
+      nickname VARCHAR(100),
       selected BOOLEAN DEFAULT FALSE,
       points INT DEFAULT 200
     )

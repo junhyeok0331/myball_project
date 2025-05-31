@@ -1,21 +1,20 @@
-  import React from 'react';
-  import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-  import Home from "./components/Home";
-  import Login from "./components/Login";
-  import Register from "./components/Register";
-  import CharacterCreate from './components/CharacterCreate';
-  import CharacterSummary from './components/CharacterSummary';
-
-// 새 페이지들 import
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import CharacterCreate from './components/CharacterCreate';
+import CharacterSummary from './components/CharacterSummary';
 import Shop from './components/Shop';
 import Exchange from './components/Exchange';
 import Ranking from './components/Ranking';
 import News from './components/News';
+import { EquippedItemProvider } from './components/EquippedItemContext'; // ✅ 경로 확인
 
-
-  function App() {
-    return (
-      <Router>
+function App() {
+  return (
+    <Router>
+      <EquippedItemProvider> {/* ✅ 여기로 감싸야 함 */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -27,8 +26,9 @@ import News from './components/News';
           <Route path="/ranking" element={<Ranking />} />
           <Route path="/news" element={<News />} />
         </Routes>
-      </Router>
-    );
-  }
+      </EquippedItemProvider>
+    </Router>
+  );
+}
 
-  export default App;
+export default App;

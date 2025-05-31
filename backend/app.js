@@ -15,12 +15,12 @@ sequelize.sync({ alter: true }) // alter: true 추가
   .then(() => console.log("✅ Sequelize sync 완료"))
   .catch(err => console.error("❌ Sequelize sync 실패:", err));
 
-module.exports = { app };
-
 const userController = require('./api/User');
-app.use('/user', userController);
+app.use('/api/users', userController);
 
 //check server is running
 app.listen(HTTP_PORT, HOST, () => {
     console.log(`server is on http://${HOST}:${HTTP_PORT}`);
 });
+
+module.exports = { app };
