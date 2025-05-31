@@ -9,6 +9,12 @@
 - **Database**: MySQL (Sequelize ORM)
 - **Styling**: CSS, JavaScript
 
+
+
+
+
+
+
 ## 백엔드 실행방법
 
 1. 프로젝트 클론
