@@ -16,7 +16,6 @@ router.post('/signup', async (req, res) => {
    
            // 유저 생성
            const newUser = await Users.create({ username, password });
-           await Points.create({user_id : username, point : 0});
            return res.status(201).json({ message: '회원가입 성공', userId: newUser.id});
        } catch (err) {
            console.error(err);

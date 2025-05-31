@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,25 +10,57 @@ const Login = () => {
     password: '',
   });
 
+  const [errorMsg, setErrorMsg] = useState('');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //alert(`아이디: ${form.username}, 비밀번호: ${form.password}`);
-    // 로그인 로직 (임시)
-    if (form.username && form.password) {
-      try {
-        // API 호출 로직이 들어갈 자리
-        // const response = await loginAPI(form);
-        
-        // 로그인 성공 시
+    setErrorMsg(''); // 이전 에러 메시지 초기화
+
+    // 간단한 유효성 검사
+    if (!form.username || !form.password) {
+      setErrorMsg('아이디와 비밀번호를 모두 입력해주세요.');
+      return;
+    }
+
+    try {
+      // 로그인 요청 경로를 '/api/users/login' 으로 수정했습니다.
+      const response = await axios.post(
+        'http://172.30.1.41:8080/user/login',
+        {
+          username: form.username,
+          password: form.password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          // 만약 쿠키 기반 세션을 사용한다면, credentials: 'include' 같은 설정이 필요할 수 있습니다.
+          // withCredentials: true
+        }
+      );
+
+      // status가 200일 때만 여기로 진입합니다.
+      if (response.status === 200) {
+        const { userId } = response.data;
+        // userId를 로컬스토리지에 저장
+        localStorage.setItem('userId', userId);
+
+        // 로그인 성공 후 다음 페이지로 이동
         navigate('/create-character');
-      } catch (error) {
-        console.error('Login failed:', error);
-        alert('로그인에 실패했습니다.');
+      }
+    } catch (err) {
+      // 백엔드에서 보낸 에러 메시지를 화면에 띄워줍니다.
+      console.error('Login failed:', err);
+
+      if (err.response && err.response.data && err.response.data.message) {
+        setErrorMsg(err.response.data.message);
+      } else {
+        setErrorMsg('로그인 중 알 수 없는 오류가 발생했습니다.');
       }
     }
   };
@@ -36,6 +69,9 @@ const Login = () => {
     <div className="App">
       <div className="card">
         <h1>마이볼</h1>
+
+        {errorMsg && <p className="error-message">{errorMsg}</p>}
+
         <form onSubmit={handleSubmit}>
           <input
             className="login-input"
