@@ -17,6 +17,7 @@
 git clone https://github.com/junhyeok0331/myball_project.git
 cd myball_project/backend
 ```
+
 2. 패키지 설치
 
 ```bash
@@ -26,6 +27,7 @@ npm install
 3. 환경 변수 설정
 .env 파일을 생성하고 아래 정보를 입력하세요
 (값은 실제 서버 환경에 맞게 작성)
+
 ```bash
 DB_HOST=localhost
 DB_USER=root
@@ -36,11 +38,13 @@ PORT=3001
 
 4. 데이터 베이스 초기화
 myball_project/backend 위치에서
+
 ```bash
 node initDB.js //실행
 ```
 
 5. 서버 실행
+
 ```bash
 npm start
 ```
