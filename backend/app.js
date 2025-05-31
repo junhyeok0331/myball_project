@@ -16,7 +16,7 @@ sequelize.sync({ alter: true }) // alter: true 추가
   .catch(err => console.error("❌ Sequelize sync 실패:", err));
 
 const userController = require('./api/User');
-app.use('/api/users', userController);
+app.use('/api/user', userController);
 
 //check server is running
 app.listen(HTTP_PORT, HOST, () => {
