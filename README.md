@@ -67,3 +67,7 @@ myball 위치에서 동작
 ```bash
 npm start
 ```
+
+## DB 설계 (현재 상황)
+
+![DB 설계도](https://github.com/user-attachments/assets/20f5b533-422f-47cc-a2f3-a04b08e995d7)
