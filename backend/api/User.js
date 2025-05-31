@@ -34,6 +34,7 @@ router.post('/signup', async (req, res) => {
 
 // 로그인 요청 처리
 router.post('/login', async (req, res) => {
+    console.log('[로그인 요청 도착]', req.body);
     try {
         const { username, password } = req.body;
 
@@ -96,6 +97,7 @@ router.post('/save-team', async (req, res) => {
 
 // 사용자의 선수 선택 저장
 router.post('/save-player', async (req, res) => {
+    console.log('[선수 선택 요청 도착]', req.body);
   try {
     const { userId, playerName } = req.body;
 
@@ -122,6 +124,7 @@ router.post('/save-player', async (req, res) => {
 
 // 사용자의 닉네임 저장 및 selected 체크
 router.post('/save-nickname', async (req, res) => {
+    console.log('[닉네임 선택 요청 도착]', req.body);
   try {
     const { userId, nickname } = req.body;
 
