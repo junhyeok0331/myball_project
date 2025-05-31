@@ -11,6 +11,10 @@ const CharacterSummary = () => {
 
   const { equippedItem } = useEquippedItem();
 
+  // 디버그용: selectedTeam.name 값 확인
+  console.log('selectedTeam:', selectedTeam);
+  console.log('selectedTeam.name:', selectedTeam?.name);
+
   const teamAvatars = {
     두산: '/avatars/doosan.png',
     한화: '/avatars/hanwha.png',
@@ -24,9 +28,8 @@ const CharacterSummary = () => {
     SSG: '/avatars/ssg.png',
   };
 
-  // 아이템 장착 시 보여줄 아바타 이미지 경로 (아이템 ID 기준)
   const equippedAvatars = {
-    1: '/shop-list/winghat_eq.png',  // 예: winghat 착용 시 이미지
+    1: '/shop-list/winghat_eq.png',
     2: '/avatars/doosan_with_wingshirt.png',
     3: '/avatars/doosan_with_cap.png',
     4: '/avatars/doosan_with_pants.png',
@@ -36,15 +39,15 @@ const CharacterSummary = () => {
     return <Navigate to="/" replace />;
   }
 
-  // equippedItem이 있으면 장착 이미지, 없으면 기본 팀 아바타
   const avatarImage = equippedItem
-    ? (equippedAvatars[equippedItem.id] || teamAvatars[selectedTeam.name])
-    : teamAvatars[selectedTeam.name];
+    ? (equippedAvatars[equippedItem.id] || teamAvatars[selectedTeam.name] || '/avatars/default.png')
+    : (teamAvatars[selectedTeam.name] || '/avatars/default.png');
 
   return (
     <div className="summary-container">
       <div className="card no-bg summary-card">
         <div className="top-left">
+          {/* 팀 로고가 selectedTeam.logo 에서 제대로 전달되는지도 체크 */}
           <img src={selectedTeam.logo} className="team-logo-small" alt="팀 로고" />
         </div>
         <div className="top-right">💰 200 p</div>
@@ -59,6 +62,7 @@ const CharacterSummary = () => {
             src={avatarImage}
             alt="캐릭터 아바타"
             className="character-img"
+            onError={(e) => { e.target.src = '/avatars/default.png'; }} // 이미지 로딩 실패 시 기본 이미지 표시
           />
         </div>
 
