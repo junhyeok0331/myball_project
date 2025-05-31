@@ -49,7 +49,18 @@ router.post('/login', async (req, res) => {
         }
 
         // 로그인 성공
-        return res.status(200).json({ message: '로그인 성공', userId: user.id });
+        const { id, team, player, selected, nickname } = user;
+   return res.status(200).json({
+    message: '로그인 성공',
+    user: {
+       userId: id,
+       username: username,
+       team,       // 유저가 선택해 둔 팀
+       player,     // 유저가 선택해 둔 선수
+       selected,   // boolean: 생성 완료 여부
+       nickname    // 유저가 저장해 둔 닉네임 (없을 수도 있음)
+    }
+    });
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: '서버 오류로 인해 로그인에 실패했습니다.' });
