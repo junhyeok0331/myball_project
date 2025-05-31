@@ -13,6 +13,5 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.Users = require('./Users')(sequelize, Sequelize);
-db.Points = require('./Points')(sequelize, Sequelize);
 
 module.exports = db;

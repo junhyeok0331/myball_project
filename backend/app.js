@@ -11,7 +11,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 const{ sequelize } = require('./models');
-sequelize.sync();
+sequelize.sync({ alter: true }) // alter: true 추가
+  .then(() => console.log("✅ Sequelize sync 완료"))
+  .catch(err => console.error("❌ Sequelize sync 실패:", err));
 
 module.exports = { app };
 

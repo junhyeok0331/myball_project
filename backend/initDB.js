@@ -13,23 +13,16 @@ async function initDatabase() {
   // 2. 사용할 DB 선택
   await connection.query(`USE myball`);
 
-  // // 3. 테이블 생성: Users
+  // 3. Users 테이블 생성 또는 재구성
   await connection.query(`
     CREATE TABLE IF NOT EXISTS Users (
       id INT PRIMARY KEY AUTO_INCREMENT,
       username VARCHAR(50) NOT NULL,
-      password VARCHAR(225) NOT NULL
-    )
-  `);
-
-  // // 4. 테이블 생성: Points (외래키 포함)
-  await connection.query(`
-    CREATE TABLE IF NOT EXISTS Points (
-      id INT PRIMARY KEY AUTO_INCREMENT,
-      user_id INT NOT NULL,
-      point INT NOT NULL,
-      FOREIGN KEY (user_id) REFERENCES Users(id)
-        ON DELETE CASCADE
+      password VARCHAR(225) NOT NULL,
+      team VARCHAR(100),
+      player VARCHAR(100),
+      selected BOOLEAN DEFAULT FALSE,
+      points INT DEFAULT 200
     )
   `);
 
