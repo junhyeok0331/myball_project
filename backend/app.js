@@ -18,6 +18,9 @@ sequelize.sync({ alter: true }) // alter: true 추가
 const userController = require('./api/User');
 app.use('/api/users', userController);
 
+const shopController = require('./api/Shop');
+app.use('/api/Shop', shopController);
+
 //check server is running
 app.listen(HTTP_PORT, HOST, () => {
     console.log(`server is on http://${HOST}:${HTTP_PORT}`);
