@@ -17,6 +17,8 @@ sequelize.sync({ alter: true }) // alter: true 추가
 
 const userController = require('./api/User');
 app.use('/api/users', userController);
+const mainPanelRouter = require('./api/MainPanel');
+app.use('/api/main-panel', mainPanelRouter);
 
 //check server is running
 app.listen(HTTP_PORT, HOST, () => {
